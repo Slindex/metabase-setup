@@ -2,7 +2,7 @@
 
 This repository contains the docker compose file and instructions to initialize a postgresql server, pgadmin and metabase images in a local environment for testing.
 
-# Setting up postgres
+# Setting up pgAdmin
 
 ## Image Pull
 
@@ -58,11 +58,11 @@ Log in with the credentials defined in the compose file:
 
 Right click on 'Servers' in the object explorer to register a new server.
 
-![Register Server](src/image.png)
+![Register Server](src/server_reg.png){: width="100px"}
 
 In the 'General' tab of the register window enter a custom name for the server connection.
 
-![Server Name](src/image-1.png)
+![Server Name](src/server_gen.png)
 
 In the connection tab we should input the following information:
 
@@ -74,7 +74,7 @@ In the connection tab we should input the following information:
 
 The information should be filled as following:
 
-![Connection Fields](src/image-3.png)
+![Connection Fields](src/server_con.png)
 
 The user and password should be the same as the ones defined in the compose file:
 
@@ -82,3 +82,39 @@ The user and password should be the same as the ones defined in the compose file
 * **Password:** testing
 
 Finally we click on save.
+
+# Setting Up Postgres
+
+We can create a database from the object explorer as following:
+
+![Database Creation](src/create_db.png)
+
+Now in the pop-up we can configure the entire database parameters but for now we will be creating a basic database just for testing. We input the name and the encoding:
+
+![Database Creation](src/db_gen.png)
+
+![Database Creation](src/db_def.png)
+
+Finally click on save.
+
+## Table Schemas Creation
+
+For creating the table schemas we can use the pgAdmin interface or execute a SQL script directly in the database we're using.
+
+The base SQL script format for creating a table is:
+
+```SQL
+CREATE TABLE IF NOT EXISTS public.invoices_copy
+(
+    invoice_id integer NOT NULL,
+    sale_id integer,
+    created_at date,
+    value integer,
+    CONSTRAINT invoices_copy_pkey PRIMARY KEY (invoice_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.invoices_copy
+    OWNER to metabase;
+```
