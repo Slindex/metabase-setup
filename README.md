@@ -58,7 +58,7 @@ Log in with the credentials defined in the compose file:
 
 Right click on 'Servers' in the object explorer to register a new server.
 
-![Register Server](src/server_reg.png){: width="100px"}
+![Register Server](src/server_reg.png)
 
 In the 'General' tab of the register window enter a custom name for the server connection.
 
