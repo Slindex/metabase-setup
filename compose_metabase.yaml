@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  metabase:
+      image: metabase/metabase
+      ports:
+        - "3000:3000"
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=metabase
+      - POSTGRES_PASSWORD=testing
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pg-admin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=david.echajaya@hotmail.com
+      - PGADMIN_DEFAULT_PASSWORD=testing
+    ports:
+      - "82:80"
+
+volumes:
+  postgres_data:
